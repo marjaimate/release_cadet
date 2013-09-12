@@ -9,11 +9,12 @@ begin
   arguments = ARGV
 
   cmd_instance = command_class.new
-  cmd_instance.send(:execute, arguments)
+  cmd_instance.send(:execute, *arguments)
 rescue NameError
   puts "Command '#{command}' not found."
 rescue => error
   puts error.class
   puts error.message
+  puts error.backtrace
 end
 
