@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'release_cadet'
+require "active_support/core_ext"
+
+command = ARGV.shift
+begin
+  command_class = "release_cadet/#{command}".camelize.constantize
+  arguments = ARGV
+
+  cmd_instance = command_class.new
+
+  puts "C: #{command}\n"
+  puts command_class
+  puts cmd_instance
+  puts "A: #{arguments}"
+rescue NameError
+  puts "Command '#{command}' not found."
+rescue => error
+  puts error.class
+  puts error.message
+end
+

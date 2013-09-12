@@ -1,0 +1,6 @@
+branches: 
+  production: master
+  staging: staging
+prefixes:
+  release: releases/
+  feature: features/
