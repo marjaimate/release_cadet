@@ -1,2 +1,2 @@
-branches:
-  production: qwer
+prefixes:
+  feature: feature/
