@@ -9,7 +9,7 @@ module ReleaseCadet
       puts "--------------------------------\n\n"
       puts "Available commands:\n"
       commands.each do |c|
-        puts "#{c.to_underscore}\n"
+        puts "#{c.to_s.underscore}\n"
       end
     end
   end
