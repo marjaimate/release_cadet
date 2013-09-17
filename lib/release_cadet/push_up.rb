@@ -1,7 +1,5 @@
 module ReleaseCadet
   class PushUp < Command
-    attr_reader :target_branches
-
     def execute from, to=nil
       # Ask for a target branch when we don't have one
       if to.nil?
@@ -33,23 +31,6 @@ module ReleaseCadet
         puts get_target_branches.join("\n")
         exit 2
       end
-    end
-
-    # Get the list of target branches
-    def get_target_branches
-      unless @target_branches
-        `git fetch --all`
-        allowed_branches = @config['branches'].values
-        allowed_branches << @config['prefixes']['releases']
-        banned_branches = ['HEAD']
-        @target_branches = `git branch -r | grep -ie '\(#{allowed_branches.join("\|")}\)' | grep -iv '\(#{banned_branches.join("\|")}\)' | sed -e 's/origin\///g'`
-      end
-      @target_branches
-    end
-
-    # We only would like to push to a list of branches only
-    def valid_target? to
-      get_target_branches.include?(to)
     end
   end
 end
