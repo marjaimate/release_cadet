@@ -11,9 +11,10 @@ module ReleaseCadet
       unless @target_branches
         `git fetch --all`
         allowed_branches = @config['branches'].values
-        allowed_branches << @config['prefixes']['releases']
+        allowed_branches << @config['prefixes']['release'] if @config['prefixes']['release']
         banned_branches = ['HEAD']
-        @target_branches = `git branch -r | grep -ie '\(#{allowed_branches.join("\|")}\)' | grep -iv '\(#{banned_branches.join("\|")}\)' | sed -e 's/origin\///g'`
+        target_branches = `git branch -r | grep -ie '\\(#{allowed_branches.join("\\|")}\\)' | grep -iv '\\(#{banned_branches.join("\\|")}\\)' | sed -e 's/origin\\///g'`
+        @target_branches = target_branches.split("\n").map{|a| a.gsub(/\s+/, "")}
       end
       @target_branches
     end
