@@ -12,8 +12,10 @@ module ReleaseCadet
       commands.each do |c|
         cmd_class_name = c.to_s.underscore
         cmd_class = "release_cadet/#{cmd_class_name}".camelize.constantize
-        puts "- #{cmd_class_name} #{cmd_class.instance_method(:execute).parameters.join(" ")}\n"
-        puts cmd_class.instance_method(:execute).parameters.to_s
+        param_list = cmd_class.instance_method(
+          :execute
+        ).parameters.map{|a| a[0].to_s == "opt" ? "[#{a[1].upcase}]" : a[1].upcase }
+        puts "- #{cmd_class_name} #{param_list.join(" ")}\n"
       end
     end
   end
