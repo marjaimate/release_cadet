@@ -33,6 +33,16 @@ module ReleaseCadet
       fetch_all + `git checkout #{branch} && git pull origin #{branch} 2>&1`
     end
 
+    def verify_branch branch
+      if /^[0-9]{2}\.[0-9]{2}/.match(branch)
+        release_branch = @config['prefixes']['release'] + branch
+        if get_target_branches.include?(release_branch)
+          branch = release_branch
+        end
+      end
+      branch
+    end
+
     # Boolean check on verbosity
     def is_verbose?
       options.include?("-v")
