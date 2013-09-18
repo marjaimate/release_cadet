@@ -6,7 +6,11 @@ module ReleaseCadet
       commands = ReleaseCadet.constants.select {|c| Class === ReleaseCadet.const_get(c)}
       commands.reject! {|c| [:Command, :ReleaseCadetCfg].include?(c)}
       puts "Release Cadet is an eager sidekick to help you dealing with releases.\n"
-      puts "Usage: $ cadet COMMAND ARGUMENTS\n"
+      puts "Usage: $ cadet [OPTIONS] COMMAND ARGUMENTS\n"
+      puts "--------------------------------\n\n"
+      puts "Available options:\n"
+      puts " -v\tVerbose\n"
+      puts " -h\tHelp\n"
       puts "--------------------------------\n\n"
       puts "Available commands:\n"
       commands.each do |c|

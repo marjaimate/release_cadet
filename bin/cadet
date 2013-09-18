@@ -3,12 +3,16 @@
 require 'release_cadet'
 require "active_support/core_ext"
 
-command = ARGV.shift
+# sparate out the options
+options = ARGV.select{|a| a =~ /^\-.$/}
+arguments = ARGV - options
+
+# get the first command - fall back to help
+command = arguments.shift || "help"
 begin
   command_class = "release_cadet/#{command}".camelize.constantize
-  arguments = ARGV
 
-  cmd_instance = command_class.new
+  cmd_instance = command_class.new options
   if arguments.empty?
     cmd_instance.send(:execute)
   else
