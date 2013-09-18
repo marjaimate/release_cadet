@@ -1,5 +1,5 @@
 module ReleaseCadet
-  class PushUp < Command
+  class Push < Command
     def execute from, to=nil
       # Ask for a target branch when we don't have one
       if to.nil?

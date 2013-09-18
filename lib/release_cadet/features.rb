@@ -1,5 +1,5 @@
 module ReleaseCadet
-  class FeatureList < Command
+  class Features < Command
     def execute release
       branch = @config['prefixes']['release'] + release
       puts "<RC> Checking out the target release '#{release}'"
