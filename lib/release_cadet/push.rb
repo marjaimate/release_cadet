@@ -1,5 +1,7 @@
 module ReleaseCadet
   class Push < Command
+    SUMMARY = "Pushes up specified branch to a target. Performs the merge, exits if merge fails."
+
     def execute from, to=nil
       # Ask for a target branch when we don't have one
       output = []
@@ -20,7 +22,7 @@ module ReleaseCadet
         if 0 == $?.exitstatus
           output << merge_output if is_verbose?
           puts output.join("\n")
-          puts "<RC> Do you want to push the results?\n [Y/n]"
+          print "<RC> Do you want to push the results?\n [Y/n]"
           should_push = STDIN.gets.chomp
           if ["y", "yes", ""].include?(should_push.downcase)
             puts "<RC> Pushing up to origin"

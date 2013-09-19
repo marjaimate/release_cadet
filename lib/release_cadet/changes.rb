@@ -1,5 +1,7 @@
 module ReleaseCadet
   class Changes < Command
+    SUMMARY = "Listing commit diff between two branches. Falls back to production branch to compare."
+
     def execute release, against=nil
       against ||= @config['branches']['production']
       output = []

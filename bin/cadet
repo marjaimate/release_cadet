@@ -18,11 +18,9 @@ begin
   else
     cmd_instance.send(:execute, *arguments)
   end
-#rescue NameError
-#  puts "Command '#{command}' not found."
+rescue NameError
+  puts "Command '#{command}' not found."
 rescue => error
-  puts error.class
   puts error.message
-  puts error.backtrace
 end
 
