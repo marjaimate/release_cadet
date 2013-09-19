@@ -19,7 +19,7 @@ module ReleaseCadet
         param_list = cmd_class.instance_method(
           :execute
         ).parameters.map{|a| a[0].to_s == "opt" ? "[#{a[1].upcase}]" : a[1].upcase }
-        puts "- #{cmd_class_name} #{param_list.join(" ")}\n"
+        puts "- #{cmd_class_name} #{param_list.join(" ")} - #{cmd_class::SUMMARY}\n"
       end
     end
   end
