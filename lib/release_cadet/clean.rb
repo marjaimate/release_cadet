@@ -13,20 +13,25 @@ module ReleaseCadet
       fetch = fetch_and_checkout(branch)
       output << fetch if is_verbose?
 
-      target_branches = `git branch -r --merged | grep -iv '\\(HEAD\\|#{branch}\\)'| sed -e 's/origin\\///g'`.split("\n").map do |a|
+      banned_branches = ['HEAD'] + @config['branches']
+      target_branches = `git branch -r --merged | grep -iv '\\(#{banned_branches.join("\\|")}\\)'| sed -e 's/origin\\///g'`.split("\n").map do |a|
         a.gsub(/\s+/, "")
       end
 
-      puts output.join("\n")
       output << "<RC> List of branches: #{target_branches.join(", ")}"
+      puts output.join("\n")
 
-      target_branches.each do |b|
-        print "<RC> Do you want to delete #{b} from origin? [yN] "
-        should_delete = STDIN.gets.chomp
-        if ["y", "yes"].include?(should_delete.downcase)
-          puts "<RC> Deleting #{b} from origin..."
-          puts "git push origin :#{b}"
+      begin
+        target_branches.each do |b|
+          print "<RC> Do you want to delete #{b} from origin? [yN] "
+          should_delete = STDIN.gets.chomp
+          if ["y", "yes"].include?(should_delete.downcase)
+            puts "<RC> Deleting #{b} from origin..."
+            puts `git push origin :#{b}`
+          end
         end
+      rescue => error
+        puts "<RC> Seems like something went wrong: #{error.message}"
       end
     end
   end
