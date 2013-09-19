@@ -2,6 +2,8 @@ require 'active_support/core_ext'
 
 module ReleaseCadet
   class Help < Command
+    SUMMARY = "Showing this output."
+
     def execute
       commands = ReleaseCadet.constants.select {|c| Class === ReleaseCadet.const_get(c)}
       commands.reject! {|c| [:Command, :ReleaseCadetCfg].include?(c)}
