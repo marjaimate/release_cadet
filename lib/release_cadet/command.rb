@@ -43,6 +43,10 @@ module ReleaseCadet
       branch
     end
 
+    def releases
+
+    end
+
     # Boolean check on verbosity
     def is_verbose?
       options.include?("-v")
