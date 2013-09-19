@@ -13,7 +13,7 @@ module ReleaseCadet
       fetch = fetch_and_checkout(branch)
       output << fetch if is_verbose?
 
-      banned_branches = ['HEAD'] + @config['branches']
+      banned_branches = ['HEAD'] + @config['branches'].values
       target_branches = `git branch -r --merged | grep -iv '\\(#{banned_branches.join("\\|")}\\)'| sed -e 's/origin\\///g'`.split("\n").map do |a|
         a.gsub(/\s+/, "")
       end
