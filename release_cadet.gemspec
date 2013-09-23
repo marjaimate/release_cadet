@@ -8,12 +8,13 @@ Gem::Specification.new do |gem|
   gem.description   = %q{SumUp release managers best friend.}
   gem.homepage      = ""
 
-  gem.files         = Dir.glob("lib/**/*.rb") + Dir.glob("bin/*") + Dir.glob("config/**/*") + ['release_cadet.gemspec']
+  gem.files         = Dir.glob("lib/**/*.rb") + Dir.glob("bin/*") + Dir.glob("config/**/*") + ['release_cadet.gemspec', 'LICENCE']
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "release_cadet"
   gem.require_paths = ["lib"]
   gem.version       = ReleaseCadet::VERSION
+  gem.license       = 'MIT'
 
   # Declare the gem dependecies
   gem.add_dependency('rake')
