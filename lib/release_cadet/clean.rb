@@ -10,11 +10,11 @@ module ReleaseCadet
       output << "<RC> Cleaning up branches that has been merged into #{branch}"
       output << "<RC> Warning this is a destructive operation!"
       output << "<RC> Checking out the target branch '#{branch}'" if is_verbose?
-      fetch = fetch_and_checkout(branch)
+      fetch = fetch_all
       output << fetch if is_verbose?
 
       banned_branches = ['HEAD'] + @config['branches'].values
-      target_branches = `git branch -r --merged | grep -iv '\\(#{banned_branches.join("\\|")}\\)'| sed -e 's/origin\\///g'`.split("\n").map do |a|
+      target_branches = `git branch -r --merged origin/#{branch}| grep -iv '\\(#{banned_branches.join("\\|")}\\)'| sed -e 's/origin\\///g'`.split("\n").map do |a|
         a.gsub(/\s+/, "")
       end
 
